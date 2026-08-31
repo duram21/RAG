@@ -29,6 +29,20 @@ TOP_K = 4              # 답변 생성에 넘길 청크 개수
 # --- 생성 ---
 # 어떤 공급자를 쓸지는 .env 의 LLM_PROVIDER 로 정합니다 ("gemini" 또는 "claude").
 # 여기 값은 각 공급자를 골랐을 때 쓸 모델입니다.
-GEMINI_MODEL = "gemini-3.7-flash"    # 무료 티어 있음. 더 똑똑하게: "gemini-2.5-pro"
+# gemini-3.7-flash 는 최신이지만 무료 티어에서 503(과부하)이 잦습니다.
+# 안정적으로 응답하는 3.6-flash 를 기본값으로 씁니다.
+# 사용 가능한 모델 목록: python scripts/models.py
+GEMINI_MODEL = "gemini-3.6-flash"
+
+# 기본 모델이 계속 503(과부하)이면 아래 순서로 대체 모델을 시도합니다.
+# 무료 티어에서는 최신·인기 모델일수록 막히므로, 조금씩 덜 붐비는 쪽으로 내려갑니다.
+GEMINI_FALLBACKS = [
+    "gemini-3.5-flash",
+    "gemini-3.1-flash-lite",
+]
+
+# 한 요청을 기다려주는 시간 (밀리초). 이 시간을 넘기면 포기하고 다음 모델로 넘어갑니다.
+# 타임아웃이 없으면 과부하 모델의 응답을 무한정 기다리게 됩니다.
+REQUEST_TIMEOUT_MS = 60_000
 CLAUDE_MODEL = "claude-opus-5"
 MAX_TOKENS = 16000

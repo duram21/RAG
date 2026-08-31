@@ -63,7 +63,23 @@ python scripts/search.py "연차는 며칠인가요?"    # 검색 결과만 확�
 python scripts/ask.py "연차는 며칠인가요?"       # 검색 + LLM 답변
 
 python scripts/ask.py "연차는 며칠인가요?" --provider claude   # 공급자 임시 변경
+python scripts/models.py --check                # 내 키로 실제 되는 모델 확인
 ```
+
+## 무료 티어에서 생기는 일
+
+Gemini 무료 티어는 **인기 있는 최신 모델일수록 503(과부하)** 을 자주 냅니다.
+모델 ID가 틀린 게 아니라 정말로 붐비는 것이므로, 코드가 스스로 헤쳐나가게 해뒀습니다.
+
+1. 같은 모델로 지수 백오프 재시도 (1초 → 2초)
+2. 그래도 안 되면 `GEMINI_FALLBACKS` 의 다음 모델로 전환
+3. 성공한 모델을 기억해 다음 질문은 거기서 시작
+
+`REQUEST_TIMEOUT_MS` 도 함께 둡니다. 타임아웃이 없으면 과부하 모델의 응답을
+무한정 기다리게 되어 대체 모델로 넘어갈 기회조차 없습니다.
+
+지금 어떤 모델이 살아 있는지는 `python scripts/models.py --check` 로 확인하고,
+`rag/config.py` 의 `GEMINI_MODEL` 을 바꾸면 됩니다.
 
 `search.py`를 먼저 써보세요. RAG가 이상한 답을 하면 원인은 대개 생성이 아니라
 검색이고, 이 스크립트로 어떤 청크가 딸려왔는지 바로 확인할 수 있습니다.
