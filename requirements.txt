@@ -1,0 +1,11 @@
+# Claude API (답변 생성)
+anthropic>=1.0.0
+
+# 로컬 임베딩 모델
+sentence-transformers>=3.0.0
+
+# 벡터 연산 / 인덱스 저장
+numpy>=1.26.0
+
+# .env 파일 로드
+python-dotenv>=1.0.0
