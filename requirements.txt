@@ -1,5 +1,6 @@
-# Claude API (답변 생성)
-anthropic>=1.0.0
+# LLM 공급자 (둘 중 쓰는 것만 있어도 동작합니다)
+google-genai>=2.0.0        # Gemini
+anthropic>=1.0.0           # Claude
 
 # 로컬 임베딩 모델
 sentence-transformers>=3.0.0

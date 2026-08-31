@@ -27,5 +27,8 @@ CHUNK_OVERLAP = 100    # 인접 청크가 겹치는 길이 — 경계에서 문�
 TOP_K = 4              # 답변 생성에 넘길 청크 개수
 
 # --- 생성 ---
+# 어떤 공급자를 쓸지는 .env 의 LLM_PROVIDER 로 정합니다 ("gemini" 또는 "claude").
+# 여기 값은 각 공급자를 골랐을 때 쓸 모델입니다.
+GEMINI_MODEL = "gemini-3.7-flash"    # 무료 티어 있음. 더 똑똑하게: "gemini-2.5-pro"
 CLAUDE_MODEL = "claude-opus-5"
 MAX_TOKENS = 16000
