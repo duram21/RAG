@@ -6,7 +6,8 @@
 from pathlib import Path
 
 # --- 경로 ---
-ROOT = Path(__file__).resolve().parent.parent
+# reference/rag/config.py 이므로 저장소 루트는 세 칸 위입니다.
+ROOT = Path(__file__).resolve().parent.parent.parent
 DOCS_DIR = ROOT / "data" / "docs"
 INDEX_DIR = ROOT / "index"
 
