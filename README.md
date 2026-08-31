@@ -50,7 +50,7 @@ python scripts/ask.py "연차는 며칠인가요?"       # 검색 + Claude 답�
 - [x] Phase 0 — 프로젝트 뼈대와 샘플 문서
 - [x] Phase 1 — 인덱싱 (로드 → 청킹 → 임베딩 → 저장)
 - [x] Phase 2 — 검색 (코사인 유사도 top-k)
-- [ ] Phase 3 — 생성 (Claude로 근거 기반 답변)
+- [x] Phase 3 — 생성 (Claude로 근거 기반 답변)
 - [ ] Phase 4 — CLI 통합 및 대화형 모드
 - [ ] Phase 5 — 하이브리드 검색(BM25)과 인용
 - [ ] Phase 6 — 검색 품질 평가
