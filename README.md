@@ -37,15 +37,19 @@ cp .env.example .env             # 그리고 .env 에 ANTHROPIC_API_KEY 채우�
 ## 사용법
 
 ```bash
-python scripts/ingest.py         # 문서를 청킹·임베딩해서 인덱스 생성
-python scripts/ask.py "연차는 며칠인가요?"
+python scripts/ingest.py                        # 문서를 청킹·임베딩해서 인덱스 생성
+python scripts/search.py "연차는 며칠인가요?"    # 검색 결과만 확인 (API 키 불필요)
+python scripts/ask.py "연차는 며칠인가요?"       # 검색 + Claude 답변
 ```
+
+`search.py`를 먼저 써보세요. RAG가 이상한 답을 하면 원인은 대개 생성이 아니라
+검색이고, 이 스크립트로 어떤 청크가 딸려왔는지 바로 확인할 수 있습니다.
 
 ## 진행 단계
 
 - [x] Phase 0 — 프로젝트 뼈대와 샘플 문서
-- [ ] Phase 1 — 인덱싱 (로드 → 청킹 → 임베딩 → 저장)
-- [ ] Phase 2 — 검색 (코사인 유사도 top-k)
+- [x] Phase 1 — 인덱싱 (로드 → 청킹 → 임베딩 → 저장)
+- [x] Phase 2 — 검색 (코사인 유사도 top-k)
 - [ ] Phase 3 — 생성 (Claude로 근거 기반 답변)
 - [ ] Phase 4 — CLI 통합 및 대화형 모드
 - [ ] Phase 5 — 하이브리드 검색(BM25)과 인용

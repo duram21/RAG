@@ -89,3 +89,29 @@ class VectorStore:
             )
 
         return cls(vectors=vectors, chunks=chunks, meta=meta)
+
+    # --- 검색 ---
+
+    def search(self, query_vector: np.ndarray, k: int) -> list[tuple[int, float]]:
+        """질문 벡터와 가장 가까운 청크 k개를 (행 번호, 점수) 목록으로 반환한다.
+
+        저장된 벡터와 질문 벡터 모두 L2 정규화되어 있으므로
+        **내적이 곧 코사인 유사도**입니다. 즉 아래 한 줄이 검색의 전부입니다.
+
+            scores = self.vectors @ query_vector
+
+        (N, D) @ (D,) -> (N,) 로, 모든 청크에 대한 유사도를 한 번에 계산합니다.
+        점수 범위는 -1 ~ 1 이고 1에 가까울수록 비슷합니다.
+
+        전체를 훑는 완전 탐색(brute-force)이라 청크 수에 비례해 느려지지만,
+        수천~수만 개 규모까지는 밀리초 단위로 끝납니다. 그 이상으로 커지면
+        이 메서드만 FAISS 같은 근사 최근접 탐색(ANN)으로 교체하면 됩니다.
+        """
+        scores = self.vectors @ query_vector
+
+        k = min(k, len(scores))
+        # argpartition 으로 상위 k개만 추린 뒤(O(N)) 그 안에서만 정렬한다.
+        top = np.argpartition(-scores, k - 1)[:k]
+        top = top[np.argsort(-scores[top])]
+
+        return [(int(i), float(scores[i])) for i in top]
