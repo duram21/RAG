@@ -74,7 +74,15 @@ model = SentenceTransformer("intfloat/multilingual-e5-small")
 # ===========================================================================
 
 def build_text_with_meta(block: dict) -> str:
-    return ""  # ← 여기를 채우세요
+    ret = ""
+    ret += "<패치>" + block["patch"] + " - " + block["name"]
+    ret += "\n"
+    ret += block["text"]
+
+    # 편하게 하려면?
+    ret = f"{block['patch']} 패치 - {block['name']}\n{block['text']}"
+
+    return ret  # ← 여기를 채우세요
 
 
 # ===========================================================================
@@ -88,8 +96,8 @@ def build_text_with_meta(block: dict) -> str:
 # ===========================================================================
 
 def search(question: str, vectors, k: int = 3):
-    query_vec = None   # ← (1) 여기를 채우세요
-    scores = None      # ← (2) 여기를 채우세요
+    query_vec = model.encode(["query: " + question], normalize_embeddings=True)[0]    # ← (1) 여기를 채우세요
+    scores = vectors@query_vec     # ← (2) 여기를 채우세요
 
     if query_vec is None or scores is None:
         return None
