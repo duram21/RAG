@@ -22,3 +22,10 @@ index/
 # 받아온 패치노트 (라이엇 콘텐츠, fetch_patches.py 로 재생성 가능)
 # 슬래시가 중간에 있는 패턴은 이 파일 위치 기준으로 고정되므로 ** 를 붙인다.
 **/data/patches/
+
+# OP.GG 에서 받아온 데이터 (라이엇/OP.GG 콘텐츠, fetch_items.py 로 재생성)
+project/data/items.json
+
+# 생성된 인덱스 (build_index.py 로 재생성)
+project/data/index.npy
+project/data/index.json
